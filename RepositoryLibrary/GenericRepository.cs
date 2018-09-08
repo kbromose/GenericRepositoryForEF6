@@ -8,37 +8,40 @@ namespace GenericRepositoryForEF6.RepositoryLibrary
 	public abstract class GenericRepository<C, T> :
 		IGenericRepository<T> where T : class where C : IDbContext
 	{
-		protected readonly IDbContext _context;
+		private readonly IDbContext _entity;
+		protected readonly C _context;
 
-		public GenericRepository(IDbContext context)
+
+		public GenericRepository(IDbContext entity)
 		{
-			_context = context;
+			_entity = entity;
+			_context = (C) entity;
 		}
 
 
 		public virtual IReadOnlyList<T> GetAll()
 		{
-			return _context.Set<T>().ToList();
+			return _entity.Set<T>().ToList();
 		}
 
 		public virtual void Add(T entity)
 		{
-			_context.Set<T>().Add(entity);
+			_entity.Set<T>().Add(entity);
 		}
 
 		public virtual void Delete(T entity)
 		{
-			_context.Set<T>().Remove(entity);
+			_entity.Set<T>().Remove(entity);
 		}
 
 		public virtual void Edit(T entity)
 		{
-			_context.Entry(entity).State = EntityState.Modified;
+			_entity.Entry(entity).State = EntityState.Modified;
 		}
 
 		public virtual void Save()
 		{
-			_context.SaveChanges();
+			_entity.SaveChanges();
 		}
 	}
 }
