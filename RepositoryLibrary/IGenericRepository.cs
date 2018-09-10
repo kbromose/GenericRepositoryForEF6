@@ -4,7 +4,6 @@ namespace GenericRepositoryForEF6.RepositoryLibrary
 {
 	public interface IGenericRepository<T> where T : class
 	{
-
 		IReadOnlyList<T> GetAll();
 		void Add(T entity);
 		void Delete(T entity);

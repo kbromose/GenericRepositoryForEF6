@@ -8,16 +8,14 @@ namespace GenericRepositoryForEF6.RepositoryLibrary
 	public abstract class GenericRepository<C, T> :
 		IGenericRepository<T> where T : class where C : IDbContext
 	{
-		private readonly IDbContext _entity;
 		protected readonly C _context;
-
+		private readonly IDbContext _entity;
 
 		public GenericRepository(IDbContext entity)
 		{
 			_entity = entity;
 			_context = (C) entity;
 		}
-
 
 		public virtual IReadOnlyList<T> GetAll()
 		{
